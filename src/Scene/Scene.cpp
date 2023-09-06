@@ -2,8 +2,8 @@
 
 #include "Scene.h"
 
-#include "ECS/Entity.h"
-#include "ECS/Components.h"
+#include "../ECS/Entity.h"
+#include "../ECS/Components.h"
 
 
 

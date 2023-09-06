@@ -4,7 +4,8 @@
 Game::Game(const char* name, int width, int height)
   : screen_width(width), screen_height(height) 
 {
-  SDL_Init(SDL_INIT_EVERYTHING);
+  SDL_SetMainReady();
+  if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
 
   window = SDL_CreateWindow(name, 0, 0, width, height, 0);
   renderer = SDL_CreateRenderer(window, 0, 0);
@@ -19,6 +20,9 @@ Game::Game(const char* name, int width, int height)
   int maxFPS = 60;
   frameDuration = (1.0f/maxFPS) * 1000.0f;
   frameCount = 0;
+  } else {
+    isRunning = false;
+  }
 }
 
 Game::~Game() {

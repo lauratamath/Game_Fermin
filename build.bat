@@ -1,0 +1,1 @@
+configure.bat && build.bat && LEVI_GAME.exe
