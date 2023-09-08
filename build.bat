@@ -1,1 +1,1 @@
-configure.bat && build.bat && LEVI_GAME.exe
+cd build && make
