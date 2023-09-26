@@ -1,4 +1,5 @@
 #include <print.h>
+#include <iostream>
 #include "Game.h"
 
 Game::Game(const char* name, int width, int height)

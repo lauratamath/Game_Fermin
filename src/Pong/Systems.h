@@ -1,8 +1,9 @@
 #pragma once
-#include <SDL_events.h>
-#include <SDL_rect.h>
-#include <SDL_render.h>
-#include <SDL_timer.h>
+#include <SDL2/SDL_events.h>
+#include <SDL2/SDL_rect.h>
+#include <SDL2/SDL_render.h>
+#include "cstdint"
+#include <SDL2/SDL_timer.h>
 #include <print.h>
 #include <FastNoise.h>
 #include <random>
@@ -296,7 +297,7 @@ class TilemapRenderSystem : public RenderSystem {
     }
 };
 
-std::map<u_int8_t, std::vector<std::pair<int, int>>> m = {
+std::map<uint8_t, std::vector<std::pair<int, int>>> m = {
     {  2, {{   0,  80 }} },
     {  8, {{  48,  96 }} },
     { 10, {{  80, 112 }} },
@@ -359,7 +360,7 @@ std::map<u_int8_t, std::vector<std::pair<int, int>>> m = {
 const int dx[8] = { -1,  0,  1, -1, 1, -1, 0, 1 }; 
 const int dy[8] = { -1, -1, -1,  0, 0,  1, 1, 1 };
 
-std::map<u_int8_t, std::pair<int, int>> d_corner = {
+std::map<uint8_t, std::pair<int, int>> d_corner = {
   {0, {  1,  1 }},
   {2, { -1,  1 }},
   {5, {  1, -1 }},
