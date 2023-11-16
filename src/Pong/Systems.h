@@ -23,15 +23,15 @@
 class HelloWorldSystem : public SetupSystem {
   public:
     HelloWorldSystem() {
-      print("Hello World Constructor");
+      //print("Hello World Constructor");
     }
 
     ~HelloWorldSystem() {
-      print("Hello World Destructor");
+      //print("Hello World Destructor");
     }
 
     void run() {
-      print("Hello World run!");
+      //print("Hello World run!");
     }
 };
 
@@ -508,10 +508,10 @@ public:
     auto& playerSprite = scene->player->get<SpriteComponent>();
 
     if (playerSpeed.x < 0) {
-      playerSprite.yIndex = 7;
+      playerSprite.yIndex = 6;
     }
     else if (playerSpeed.x > 0) {
-      playerSprite.yIndex = 6;
+      playerSprite.yIndex = 7;
     }
     else if (playerSpeed.y < 0) {
       playerSprite.yIndex = 5;
@@ -520,9 +520,9 @@ public:
       playerSprite.yIndex = 4;
     } else {
       if (playerSprite.yIndex == 7) {
-        playerSprite.yIndex = 2;
-      } else if (playerSprite.yIndex == 6) {
         playerSprite.yIndex = 3;
+      } else if (playerSprite.yIndex == 6) {
+        playerSprite.yIndex = 2;
       } else if (playerSprite.yIndex == 5) {
         playerSprite.yIndex = 1;
       } else if (playerSprite.yIndex == 4) {

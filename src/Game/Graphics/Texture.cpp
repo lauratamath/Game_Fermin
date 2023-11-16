@@ -77,7 +77,7 @@ void Texture::render(int x, int y, int w, int h, SDL_Rect* clip, double angle, S
   if (h != 0) {
     rHeight = h;
   }
-
+  
 	SDL_Rect renderQuad = { x, y, rWidth, rHeight };
 
 	SDL_RenderCopy(renderer, texture, clip, &renderQuad);

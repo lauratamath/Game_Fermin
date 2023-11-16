@@ -20,6 +20,30 @@ Pong::~Pong() {
 
 Scene* Pong::createGameplayScene() {
   Scene* scene = new Scene("GAMEPLAY SCENE");
+
+  Entity white = scene->createEntity("Fermin1", 0, 0);
+  auto& s = white.addComponent<SpriteComponent>(
+    "Sprites/Cat/FerminSheet.png",
+    0, 0,
+    48,
+    8,
+    1000
+  );
+  s.lastUpdate = SDL_GetTicks();
+
+  Entity black = scene->createEntity("Fermin2", 50, 0);
+  black.addComponent<SpriteComponent>(
+    "Sprites/Cat/FerminSheet.png", 
+    0, 0,
+    48,
+    8,
+    1000,
+    PixelShader{
+      [](Uint32 color) -> Uint32 { return (color == 0xcacbd0FF) ? 0xe0bd2cFF : color ; },
+      "yellow"
+    },
+    SDL_GetTicks()
+  );
   
   scene->addSetupSystem(new WorldSetupSystem());
   scene->addSetupSystem(new CameraSetupSystem());

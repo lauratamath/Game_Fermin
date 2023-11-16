@@ -36,7 +36,7 @@ void Game::setScene(Scene* newScene) {
 }
 
 void Game::frameStart() {
-  print("---------- Frame: ", frameCount, "----------");
+  //("---------- Frame: ", frameCount, "----------");
   frameStartTimestamp = SDL_GetTicks();
 
   if (frameEndTimestamp) {
@@ -66,8 +66,8 @@ void Game::frameEnd() {
     lastFPSUpdate = currentTime;
     frameCountPerSecond = 0;
   }
-  vprint(FPS);
-  print("===================================");
+  //vprint(FPS);
+  //print("===================================");
 }
 
 void Game::handleEvents() {
