@@ -10,8 +10,11 @@
 Pong::Pong(const char* name, int width, int height)
   : Game(name, width, height)
 {
+  print("ONE");
   Scene* gameplayScene = createGameplayScene();
+  print("TWO");
   setScene(gameplayScene);
+  print("THREE");
 }
 
 Pong::~Pong() {
@@ -56,8 +59,10 @@ Scene* Pong::createGameplayScene() {
   scene->addSetupSystem(new SpriteSetupSystem(renderer));
   scene->addRenderSystem(new SpriteRenderSystem());
   scene->addUpdateSystem(new SpriteUpdateSystem());
+  /*
 
 
+  */
   scene->addEventSystem(new PlayerInputSystem());
   scene->addUpdateSystem(new TileCollisionUpdateSystem());
   scene->addUpdateSystem(new MovementUpdateSystem());

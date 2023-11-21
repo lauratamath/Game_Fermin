@@ -98,7 +98,7 @@ class PlayerInputSystem : public EventSystem {
 class SpriteSetupSystem : public SetupSystem {
   public:
     SpriteSetupSystem(SDL_Renderer* renderer)
-      : renderer(renderer) { }
+      : renderer(renderer) { print("ITS ALIVE"); }
 
     ~SpriteSetupSystem() {
       auto view = scene->r.view<SpriteComponent>();
@@ -111,12 +111,15 @@ class SpriteSetupSystem : public SetupSystem {
     }
 
     void run() {
+      print("ITS RUNNING");
       auto view = scene->r.view<SpriteComponent>();
-
+      print("VIEW GOTTEN");
       for(auto entity : view) {
+        print("FOR");
         const auto spriteComponent = view.get<SpriteComponent>(entity);
-  
+        print("SPRITE GOTTEN");
         TextureManager::LoadTexture(spriteComponent.name, renderer, spriteComponent.shader);
+        print("TEXTURE LOADED");
       }
     }
 

@@ -31,12 +31,15 @@ Game::~Game() {
 }
 
 void Game::setScene(Scene* newScene) {
+  print("SET SCENE");
   currentScene = newScene;
+  print("ASSIGNED");
   currentScene->setup();
+  print("SETUP");
 }
 
 void Game::frameStart() {
-  //("---------- Frame: ", frameCount, "----------");
+  print("---------- Frame: ", frameCount, "----------");
   frameStartTimestamp = SDL_GetTicks();
 
   if (frameEndTimestamp) {
@@ -99,13 +102,19 @@ bool Game::running() {
 }
 
 void Game::run() {
+  print("BEFORE WHILE");
   while (running()) {
+    print("A");
     frameStart();
-    
+    print("B");
     handleEvents();
+    print("C");
     update();
+    print("D");
     render();
+    print("E");
     
     frameEnd();
+    print("F");
   }
 }

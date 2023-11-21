@@ -36,7 +36,9 @@ void Scene::addSetupSystem(SetupSystem* system) {
 }
 
 void Scene::setup() {
+  print("SETUP!!");
   for (const auto& s : setupSystems) {
+    print("AAA");
     s->run();
   }
 }

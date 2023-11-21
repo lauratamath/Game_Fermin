@@ -27,37 +27,52 @@ Texture::~Texture() {
 }
 
 void Texture::load(std::string path, PixelShader shader) {
+  print("LOADING");
   if (texture != nullptr) {
+    print("LOAD IF");
     SDL_DestroyTexture(texture);
     texture = nullptr;
   }
 
+  print("NOT LOAD IF");
+
 	SDL_Texture* newTexture = nullptr;
+  print("NEW TEXTURE");
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+  print("LOAD SURFACE");
   SDL_Surface* formattedSurface = SDL_ConvertSurfaceFormat(loadedSurface, format, 0);
+  print("FORMATTED SURFACE");
   newTexture = SDL_CreateTexture(renderer, format, SDL_TEXTUREACCESS_STREAMING, loadedSurface->w, loadedSurface->h);
+  print("CREATE SURFACE");
   SDL_SetTextureBlendMode(newTexture, SDL_BLENDMODE_BLEND);
+  print("BLEND MODE");
 
   Uint32* targetPixels;
   SDL_LockTexture(newTexture, NULL, reinterpret_cast<void**>(&targetPixels), &pitch);
+  print("LOCK TEXTURE");
 
   Uint32* sourcePixels = reinterpret_cast<Uint32*>(formattedSurface->pixels);
+  print("SOURCE PIXELS");
 
   if (shader.func != nullptr) {
+    print("SOURCE IF");
     for (int i = 0; i < (pitch/4 * formattedSurface->h); ++i) {
         targetPixels[i] = shader.func(sourcePixels[i]);
     }
   } else {
+    print("SOURCE ELSE");
     memcpy(targetPixels, sourcePixels, pitch * formattedSurface->h);
   }
-  
+  print("OUT IF");
   SDL_UnlockTexture(newTexture);
+  print("TEXTURE UNLOCK");
 
   width = loadedSurface->w;
   height = loadedSurface->h;
   
   SDL_FreeSurface(formattedSurface);
   SDL_FreeSurface(loadedSurface);
+  print("FREED SURFACE");
   
 	texture = newTexture;
 }
