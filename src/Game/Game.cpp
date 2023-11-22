@@ -31,11 +31,8 @@ Game::~Game() {
 }
 
 void Game::setScene(Scene* newScene) {
-  print("SET SCENE");
   currentScene = newScene;
-  print("ASSIGNED");
   currentScene->setup();
-  print("SETUP");
 }
 
 void Game::frameStart() {
@@ -69,8 +66,8 @@ void Game::frameEnd() {
     lastFPSUpdate = currentTime;
     frameCountPerSecond = 0;
   }
-  //vprint(FPS);
-  //print("===================================");
+  vprint(FPS);
+  print("===================================");
 }
 
 void Game::handleEvents() {
@@ -102,19 +99,13 @@ bool Game::running() {
 }
 
 void Game::run() {
-  print("BEFORE WHILE");
   while (running()) {
-    print("A");
     frameStart();
-    print("B");
+    
     handleEvents();
-    print("C");
     update();
-    print("D");
     render();
-    print("E");
     
     frameEnd();
-    print("F");
   }
 }

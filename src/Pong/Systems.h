@@ -23,15 +23,15 @@
 class HelloWorldSystem : public SetupSystem {
   public:
     HelloWorldSystem() {
-      //print("Hello World Constructor");
+      print("Hello World Constructor");
     }
 
     ~HelloWorldSystem() {
-      //print("Hello World Destructor");
+      print("Hello World Destructor");
     }
 
     void run() {
-      //print("Hello World run!");
+      print("Hello World run!");
     }
 };
 
@@ -98,7 +98,7 @@ class PlayerInputSystem : public EventSystem {
 class SpriteSetupSystem : public SetupSystem {
   public:
     SpriteSetupSystem(SDL_Renderer* renderer)
-      : renderer(renderer) { print("ITS ALIVE"); }
+      : renderer(renderer) { }
 
     ~SpriteSetupSystem() {
       auto view = scene->r.view<SpriteComponent>();
@@ -111,15 +111,12 @@ class SpriteSetupSystem : public SetupSystem {
     }
 
     void run() {
-      print("ITS RUNNING");
       auto view = scene->r.view<SpriteComponent>();
-      print("VIEW GOTTEN");
+
       for(auto entity : view) {
-        print("FOR");
         const auto spriteComponent = view.get<SpriteComponent>(entity);
-        print("SPRITE GOTTEN");
+  
         TextureManager::LoadTexture(spriteComponent.name, renderer, spriteComponent.shader);
-        print("TEXTURE LOADED");
       }
     }
 
@@ -493,7 +490,7 @@ class PlayerSetupSystem : public SetupSystem {
       scene->player = new Entity(scene->r.create(), scene);
       scene->player->addComponent<TransformComponent>(x, y);
       auto& s = scene->player->addComponent<SpriteComponent>(
-        "Sprites/Cat/FerminSpriteSheet.png",
+        "Sprites/Cat/FerminSheet.png",
         0, 0,
         spriteSize,
         8,

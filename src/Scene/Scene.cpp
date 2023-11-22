@@ -10,11 +10,11 @@
 
 Scene::Scene(const std::string& name)
   : name(name) {
-    //print("Scene Created: ", name);
+    print("Scene Created: ", name);
 }
 
 Scene::~Scene() {
-    //print("Scene Destroyed");
+    print("Scene Destroyed");
 
     for (auto s : setupSystems) {
       delete s;  // call each system destructor
@@ -36,9 +36,7 @@ void Scene::addSetupSystem(SetupSystem* system) {
 }
 
 void Scene::setup() {
-  print("SETUP!!");
   for (const auto& s : setupSystems) {
-    print("AAA");
     s->run();
   }
 }
