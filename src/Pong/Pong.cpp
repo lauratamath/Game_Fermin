@@ -26,7 +26,7 @@ Scene* Pong::createGameplayScene() {
 
   Entity white = scene->createEntity("Fermin1", 0, 0);
   auto& s = white.addComponent<SpriteComponent>(
-    "Sprites/Cat/FerminSheet.png",
+    "Sprites/Cat/SpriteSheet.png",
     0, 0,
     48,
     8,
@@ -36,7 +36,7 @@ Scene* Pong::createGameplayScene() {
 
   Entity black = scene->createEntity("Fermin2", 50, 0);
   black.addComponent<SpriteComponent>(
-    "Sprites/Cat/FerminSheet.png", 
+    "Sprites/Cat/SpriteSheet.png", 
     0, 0,
     48,
     8,
