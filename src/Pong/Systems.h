@@ -196,7 +196,7 @@ class TilemapSetupSystem : public SetupSystem {
       const auto playerPosition = scene->player->get<TransformComponent>();
       const auto z = scene->mainCamera->get<CameraComponent>().zoom;
       Texture* waterTexture = TextureManager::LoadTexture("Tilesets/Water.png", renderer);
-      Texture* grassTexture = TextureManager::LoadTexture("Tilesets/Grass.png", renderer);
+      Texture* grassTexture = TextureManager::LoadTexture("Tilesets/NewModel.png", renderer);
 
       auto& tilemap = scene->world->get<TilemapComponent>();
       tilemap.map.resize(tilemap.width * tilemap.height);
@@ -217,8 +217,8 @@ class TilemapSetupSystem : public SetupSystem {
       for (int y = 0; y < tilemap.height; y++) {
         for (int x = 0; x < tilemap.width; x++) {
           float factor = noise.GetNoise(
-            static_cast<float>((x + offsetX) * zoom), 
-            static_cast<float>((y + offsetY) * zoom) 
+            static_cast<float>((x + offsetX) * zoom) / tilemap.width, 
+            static_cast<float>((y + offsetY) * zoom) / tilemap.height //qutiar?
           );
           int index = y * tilemap.width + x;
 
@@ -250,48 +250,44 @@ class TilemapRenderSystem : public RenderSystem {
       const auto cameraComponent = scene->mainCamera->get<CameraComponent>();
       const int z = cameraComponent.zoom;
       int size = tilemap.tileSize;
+      //int renderSize = 100;
+      int renderSize = 1000;
 
-      int startX = std::max(0, c.x / (size * z));
+     /*  int startX = std::max(0, c.x / (size * z));
       int endX = std::min(tilemap.width, (c.x + cameraComponent.viewportWidth) / (size * z));
       int startY = std::max(0, c.y / (size * z));
-      int endY = std::min(tilemap.height, (c.y + cameraComponent.viewportHeight) / (size * z));
+      int endY = std::min(tilemap.height, (c.y + cameraComponent.viewportHeight) / (size * z)); */
 
 
-      for (int y = startY; y <= endY; y++) {
-        for (int x = startX; x <= endX; x++) {
+      for (int y = 0; y < tilemap.height; y++) {
+        for (int x = 0; x < tilemap.width; x++) {
           Tile tile = tilemap.map[y * tilemap.width + x];
+          // Calculate the screen position for the current tile
+          int screenX = x * renderSize - c.x;
+          int screenY = y * renderSize - c.y;
+          
 
-          int renderSize = tilemap.tileSize * z;
+          // Check if the tile is within the camera's view
+          if (screenX + renderSize >= 0 && screenX <= cameraComponent.viewportWidth && screenY + renderSize >= 0 && screenY <= cameraComponent.viewportHeight) {
 
-          if (tile.down.texture) {
-            SDL_Rect downClip = {
-              tile.down.x,
-              tile.down.y,
-              size,
-              size
-            };
+            // Render the "down" texture
+            if (tile.down.texture) {
+              tile.down.texture->render(
+                screenX,
+                screenY,
+                renderSize,
+                renderSize
+              );
+            }
 
-            tile.down.texture->render(
-              x * renderSize - c.x,
-              y * renderSize - c.y,
+            // Render the "up" texture
+            tile.up.texture->render(
+              screenX,
+              screenY,
               renderSize,
-              renderSize,
-              &downClip
+              renderSize
             );
           }
-          SDL_Rect upClip = {
-              tile.up.x,
-              tile.up.y,
-              size,
-              size
-          };
-          tile.up.texture->render(
-            x * renderSize - c.x,
-            y * renderSize - c.y,
-            renderSize,
-            renderSize,
-            &upClip
-          );
         }
       }
     }
@@ -484,9 +480,11 @@ class PlayerSetupSystem : public SetupSystem {
       const auto worldComponent = scene->world->get<WorldComponent>();
       const auto cameraComponent = scene->mainCamera->get<CameraComponent>();
       int spriteSize = 48;
-      int x = worldComponent.width / 2 - (spriteSize * cameraComponent.zoom) / 2;
-      int y = worldComponent.height / 2 - (spriteSize * cameraComponent.zoom) / 2;
- 
+      //int x = worldComponent.width / 2 - (spriteSize * cameraComponent.zoom) / 2;
+      //int y = worldComponent.height / 2 - (spriteSize * cameraComponent.zoom) / 2;
+      int x = 20;
+      int y =20;
+
       scene->player = new Entity(scene->r.create(), scene);
       scene->player->addComponent<TransformComponent>(x, y);
       auto& s = scene->player->addComponent<SpriteComponent>(
